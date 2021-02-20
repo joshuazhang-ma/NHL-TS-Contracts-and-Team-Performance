@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1575340628562.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "377119825",
+    "id" : "F2CD0C60",
+    "lastKnownWriteTime" : 1575344566,
+    "last_content_update" : 1575344566645,
+    "path" : "C:/Users/Joshua Zhang/Downloads/MA611/Josh and Ray/Code.R",
+    "project_path" : "Code.R",
+    "properties" : {
+        "cursorPosition" : "42,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

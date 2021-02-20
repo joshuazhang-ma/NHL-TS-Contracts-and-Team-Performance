@@ -1,0 +1,42 @@
+library(tidyverse)
+library(fpp2)
+library(tsoutliers)
+library(nonlinearTseries)
+library(TSEntropies)
+
+bruins_season <- read_excel("Boston Bruins History.xlsx", col_types = c("numeric", "skip", "skip", "skip", "skip", "skip", "skip", "skip", "numeric", "numeric", "numeric", "numeric", "skip"))
+
+Boston_Bruins_History <- read_excel("Boston Bruins History.xlsx", sheet = "Sheet2")
+bruins.ts <- ts(Boston_Bruins_History$Value, start = c(2005, 1), frequency = 4)
+
+autoplot(bruins.ts)
+
+tsoutliers(bruins.ts, lambda = "auto")
+# No outliers in the data.
+
+nonlinearityTest(bruins.ts)
+# Most of the p-values are very high, meaning linear models should be good to go.
+
+SampEn(bruins.ts)
+# Not simple, but not too chaotic either.
+
+ggseasonplot(bruins.ts, continuous = TRUE, polar = TRUE)
+# No clear patterns, trends in the plot. Seems to have some preference for performing well in Q2 compared to Q4. 
+
+# Due to entropy being moderate, there is a total of 57 data points, we will reserve the last 3 observations for the test set.
+bruins.train <- ts(bruins.ts[1:54], start = c(2005, 1), frequency = 4)
+bruins.test <- ts(bruins.ts[55:57], start = c(2018, 3), frequency = 4)
+
+bruins.ets <- ets(bruins.train, damped = TRUE)
+bruins.ets
+
+bruins.arima <- auto.arima(bruins.train, stepwise = FALSE)
+bruins.arima
+
+bruins.nn <- nnetar(bruins.train)
+bruins.nn
+
+# Accuracies
+accuracy(forecast(bruins.ets), bruins.ts)
+accuracy(forecast(bruins.arima), bruins.ts)
+accuracy(forecast(bruins.nn), bruins.ts)
